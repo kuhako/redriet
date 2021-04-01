@@ -24,14 +24,16 @@ jar {
 
 repositories {
     mavenCentral()
-    maven { url 'https://jitpack.io' }
-    jcenter() // Temporary until JDA switches over to jitpack permanently
+    maven {
+        url 'https://m2.dv8tion.net/releases'
+        name 'm2-dv8tion'
+    }
 }
 
 dependencies {
     implementation fileTree(include: ["*.jar"], dir: "lib")
 
-    implementation 'net.dv8tion:JDA:4.2.0_247'
+    implementation 'net.dv8tion:JDA:4.2.0_249'
     implementation 'org.reflections:reflections:0.9.12'
     implementation 'org.apache.commons:commons-text:1.9'
     implementation 'commons-codec:commons-codec:1.15'
