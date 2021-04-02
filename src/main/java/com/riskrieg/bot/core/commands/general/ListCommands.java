@@ -4,6 +4,7 @@ import com.riskrieg.bot.Main;
 import com.riskrieg.bot.constant.BotConstants;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.constant.Constants;
 import com.riskrieg.gamemode.GameMode;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -17,8 +18,13 @@ public class ListCommands extends Command {
     this.settings.setEmbedColor(BotConstants.GENERIC_CMD_COLOR);
   }
 
+  @Override
+  protected void execute(SlashInput input) {
+
+  }
+
   protected void execute(MessageInput input) {
-    String prefix = Main.bot.getPrefix();
+    String prefix = Main.bot.auth().prefix();
 
     final MessageEmbed embed;
     if (input.args().length == 1) {

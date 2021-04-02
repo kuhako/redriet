@@ -4,6 +4,7 @@ import com.riskrieg.api.Riskrieg;
 import com.riskrieg.bot.constant.BotConstants;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.bot.util.Error;
 import com.riskrieg.constant.Constants;
 import com.riskrieg.gamemode.Game;
@@ -20,6 +21,11 @@ public class BugReport extends Command {
     this.settings.setDescription("Generates information for a bug report.");
     this.settings.setEmbedColor(BotConstants.GENERIC_CMD_COLOR);
     this.settings.setGuildOnly(true);
+  }
+
+  @Override
+  protected void execute(SlashInput input) {
+
   }
 
   @Override

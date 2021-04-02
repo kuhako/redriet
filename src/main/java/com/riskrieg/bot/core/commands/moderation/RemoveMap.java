@@ -1,10 +1,11 @@
 package com.riskrieg.bot.core.commands.moderation;
 
-import com.aaronjyoder.util.json.gson.GsonUtil;
+import com.aaronjyoder.util.json.moshi.MoshiUtil;
 import com.google.gson.reflect.TypeToken;
 import com.riskrieg.bot.constant.BotConstants;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.constant.Constants;
 import java.lang.reflect.Type;
 import java.util.HashSet;
@@ -18,17 +19,22 @@ public class RemoveMap extends Command {
     this.settings.setGuildOnly(true);
   }
 
+  @Override
+  protected void execute(SlashInput input) {
+
+  }
+
   protected void execute(MessageInput input) {
     if (input.event().getGuild().getId().equals("699410244857757696") && input.event().getMember().getRoles().stream()
         .anyMatch((role) -> role.getId().equals("714159616103153665"))) {
       if (input.args().length == 1) {
         Type type = (new TypeToken<HashSet<String>>() {
         }).getType();
-        HashSet<String> maps = GsonUtil.read(Constants.AVAILABLE_MAPS, type);
+        HashSet<String> maps = MoshiUtil.read(Constants.AVAILABLE_MAPS, type);
         String name = input.arg(0).trim();
         if (maps.contains(name)) {
           maps.remove(name);
-          GsonUtil.write(Constants.AVAILABLE_MAPS, type, maps);
+          MoshiUtil.write(Constants.AVAILABLE_MAPS, type, maps);
           input.event().getChannel().sendMessage("Map successfully removed.").queue();
         } else {
           input.event().getChannel().sendMessage("Map **" + name + "** not present in maps list, so there was nothing to remove.").queue();

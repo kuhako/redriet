@@ -4,6 +4,7 @@ import com.riskrieg.api.Riskrieg;
 import com.riskrieg.bot.Main;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.bot.util.Error;
 import com.riskrieg.bot.util.MessageUtil;
 import com.riskrieg.constant.Colors;
@@ -26,6 +27,11 @@ public class Create extends Command {
     this.settings.setGuildOnly(true);
   }
 
+  @Override
+  protected void execute(SlashInput input) {
+
+  }
+
   protected void execute(MessageInput input) {
     Riskrieg api = new Riskrieg();
     Optional<GameMode> chosenGameMode = MessageUtil.getClosestGameMode(input.argString().trim());
@@ -43,7 +49,7 @@ public class Create extends Command {
       }
     } else {
       input.event().getChannel().sendMessage(Error.create("You need to supply a valid game mode when creating a game.\nUse the `"
-          + Main.bot.getPrefix() + "gamemodes` command to see a list of game modes.", this.settings)).queue();
+          + Main.bot.auth().prefix() + "gamemodes` command to see a list of game modes.", this.settings)).queue();
     }
   }
 

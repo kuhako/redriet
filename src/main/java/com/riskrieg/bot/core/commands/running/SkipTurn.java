@@ -3,6 +3,7 @@ package com.riskrieg.bot.core.commands.running;
 import com.riskrieg.api.Riskrieg;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.bot.util.Error;
 import com.riskrieg.bot.util.RiskriegUtil;
 import com.riskrieg.constant.Colors;
@@ -18,6 +19,11 @@ public class SkipTurn extends Command {
     this.settings.setDescription("Skips your turn.");
     this.settings.setGuildOnly(true);
     this.settings.setEmbedColor(Colors.BORDER_COLOR);
+  }
+
+  @Override
+  protected void execute(SlashInput input) {
+
   }
 
   protected void execute(MessageInput input) {

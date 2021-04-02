@@ -1,10 +1,11 @@
 package com.riskrieg.bot.core.commands.setup;
 
-import com.aaronjyoder.util.json.gson.GsonUtil;
+import com.aaronjyoder.util.json.moshi.MoshiUtil;
 import com.google.gson.reflect.TypeToken;
 import com.riskrieg.api.Riskrieg;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.bot.util.Error;
 import com.riskrieg.bot.util.RiskriegUtil;
 import com.riskrieg.constant.Colors;
@@ -29,6 +30,11 @@ public class MapSelect extends Command {
     this.settings.setDescription("Selects a map.");
     this.settings.setEmbedColor(Colors.BORDER_COLOR);
     this.settings.setGuildOnly(true);
+  }
+
+  @Override
+  protected void execute(SlashInput input) {
+
   }
 
   protected void execute(MessageInput input) {
@@ -84,7 +90,7 @@ public class MapSelect extends Command {
     }
     Type type = (new TypeToken<HashSet<String>>() {
     }).getType();
-    HashSet<String> availableMaps = GsonUtil.read(Constants.AVAILABLE_MAPS, type);
+    HashSet<String> availableMaps = MoshiUtil.read(Constants.AVAILABLE_MAPS, type);
 
     String closestName = null;
     int lowestDistance = Integer.MAX_VALUE;

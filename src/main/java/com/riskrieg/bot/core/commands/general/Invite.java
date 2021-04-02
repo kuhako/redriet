@@ -3,6 +3,7 @@ package com.riskrieg.bot.core.commands.general;
 import com.riskrieg.bot.constant.BotConstants;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 public class Invite extends Command {
@@ -11,6 +12,11 @@ public class Invite extends Command {
     this.settings.setAliases("invite", "invites", "server", "discord", "discord-server", "discordserver", "helpserver", "officialserver");
     this.settings.setDescription("Sends all of the different kinds of invites.");
     this.settings.setEmbedColor(BotConstants.GENERIC_CMD_COLOR);
+  }
+
+  @Override
+  protected void execute(SlashInput input) {
+
   }
 
   protected void execute(MessageInput input) {

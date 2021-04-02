@@ -3,6 +3,7 @@ package com.riskrieg.bot.core.commands.creative;
 import com.riskrieg.api.Riskrieg;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.bot.util.Error;
 import com.riskrieg.bot.util.MessageUtil;
 import com.riskrieg.constant.Colors;
@@ -19,6 +20,11 @@ public class RemoveTerritory extends Command {
     this.settings.setDescription("Removes the specified territories from any player.");
     this.settings.setEmbedColor(Colors.BORDER_COLOR);
     this.settings.setGuildOnly(true);
+  }
+
+  @Override
+  protected void execute(SlashInput input) {
+
   }
 
   protected void execute(MessageInput input) {

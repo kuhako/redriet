@@ -3,6 +3,7 @@ package com.riskrieg.bot.core.commands.stateless;
 import com.riskrieg.api.Riskrieg;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.bot.util.Error;
 import com.riskrieg.constant.Colors;
 import com.riskrieg.response.Response;
@@ -18,6 +19,11 @@ public class End extends Command {
     this.settings.setEmbedColor(Colors.BORDER_COLOR);
     this.settings.setGuildOnly(true);
     this.settings.setAuthorPerms(Permission.MANAGE_CHANNEL);
+  }
+
+  @Override
+  protected void execute(SlashInput input) {
+
   }
 
   protected void execute(MessageInput input) {

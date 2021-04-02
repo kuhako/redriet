@@ -3,6 +3,7 @@ package com.riskrieg.bot.core.commands.general;
 import com.riskrieg.bot.constant.BotConstants;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import java.time.Instant;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -19,8 +20,13 @@ public class Feedback extends Command {
   }
 
   @Override
+  protected void execute(SlashInput input) {
+
+  }
+
+  @Override
   protected void execute(MessageInput input) {
-    if (input.argString() != null && !input.argString().isEmpty()) {
+    if (!input.argString().isEmpty()) {
       Member member = input.event().getMember();
       EmbedBuilder embedBuilder = new EmbedBuilder();
       embedBuilder.setAuthor(member.getEffectiveName(), null, member.getUser().getEffectiveAvatarUrl());
@@ -31,8 +37,7 @@ public class Feedback extends Command {
       infoSb.append("User ID: ").append(member.getId());
       embedBuilder.addField("Information", infoSb.toString(), false);
 
-      EmbedBuilder response = new EmbedBuilder();
-      response.setColor(settings.getEmbedColor());
+      EmbedBuilder response = settings.embedBuilder();
       response.setTitle("Feedback Response");
       response.setTimestamp(Instant.now());
 

@@ -1,7 +1,7 @@
 package com.riskrieg.bot;
 
 import com.aaronjyoder.util.json.adapters.RuntimeTypeAdapterFactory;
-import com.aaronjyoder.util.json.gson.GsonUtil;
+import com.aaronjyoder.util.json.moshi.MoshiUtil;
 import com.riskrieg.bot.core.Bot;
 import com.riskrieg.bot.core.listeners.GuildListener;
 import com.riskrieg.bot.core.listeners.MessageListener;
@@ -18,7 +18,7 @@ public class Main {
   public static final Bot bot = new Bot();
 
   public static void main(String[] args) {
-    GsonUtil.register(RuntimeTypeAdapterFactory.of(Preference.class).with(KickOnGuildExit.class).with(PingOnTurn.class));
+    MoshiUtil.register(RuntimeTypeAdapterFactory.of(Preference.class).with(KickOnGuildExit.class).with(PingOnTurn.class));
     registerFonts();
     try {
       bot.start(new ReadyListener(), new MessageListener(), new GuildListener());

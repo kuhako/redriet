@@ -1,10 +1,11 @@
 package com.riskrieg.bot.core.commands.moderation;
 
-import com.aaronjyoder.util.json.gson.GsonUtil;
+import com.aaronjyoder.util.json.moshi.MoshiUtil;
 import com.google.gson.reflect.TypeToken;
 import com.riskrieg.bot.constant.BotConstants;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.constant.Constants;
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +25,11 @@ public class Stats extends Command {
     this.settings.setDescription("Gets information about how the bot is doing.");
     this.settings.setEmbedColor(BotConstants.MOD_CMD_COLOR);
     this.settings.setOwnerCommand(true);
+  }
+
+  @Override
+  protected void execute(SlashInput input) {
+
   }
 
   protected void execute(MessageInput input) {
@@ -51,7 +57,7 @@ public class Stats extends Command {
     try {
       Type type = (new TypeToken<HashSet<String>>() {
       }).getType();
-      HashSet<String> availableMaps = GsonUtil.read(Constants.AVAILABLE_MAPS, type);
+      HashSet<String> availableMaps = MoshiUtil.read(Constants.AVAILABLE_MAPS, type);
       maps = availableMaps.size();
     } catch (Exception e) {
       maps = -1L;

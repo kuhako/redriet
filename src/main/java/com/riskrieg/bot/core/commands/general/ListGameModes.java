@@ -2,6 +2,7 @@ package com.riskrieg.bot.core.commands.general;
 
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.constant.Colors;
 import com.riskrieg.constant.Constants;
 import com.riskrieg.gamemode.GameMode;
@@ -13,6 +14,11 @@ public class ListGameModes extends Command {
     this.settings.setAliases("gamemodes");
     this.settings.setDescription("Lists available game modes.");
     this.settings.setEmbedColor(Colors.BORDER_COLOR);
+  }
+
+  @Override
+  protected void execute(SlashInput input) {
+
   }
 
   protected void execute(MessageInput input) {

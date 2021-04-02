@@ -3,6 +3,7 @@ package com.riskrieg.bot.core.commands.general;
 import com.riskrieg.bot.constant.BotConstants;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.bot.core.preference.Preferences;
 import com.riskrieg.bot.util.MessageUtil;
 import com.riskrieg.constant.Constants;
@@ -15,6 +16,11 @@ public class GetPreferences extends Command {
     this.settings.setDescription("Gets bot preferences.");
     this.settings.setGuildOnly(true);
     this.settings.setEmbedColor(BotConstants.GENERIC_CMD_COLOR);
+  }
+
+  @Override
+  protected void execute(SlashInput input) {
+
   }
 
   protected void execute(MessageInput input) { // TODO: Create a command that lets me deprecate a preference and have it affect all preference saves.

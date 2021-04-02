@@ -3,6 +3,7 @@ package com.riskrieg.bot.core.commands.stateless;
 import com.riskrieg.api.Riskrieg;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.bot.util.Error;
 import com.riskrieg.constant.Colors;
 import com.riskrieg.gamemode.Game;
@@ -17,6 +18,11 @@ public class Players extends Command {
     this.settings.setDescription("Shows all of the players in the game.");
     this.settings.setEmbedColor(Colors.BORDER_COLOR);
     this.settings.setGuildOnly(true);
+  }
+
+  @Override
+  protected void execute(SlashInput input) {
+
   }
 
   protected void execute(MessageInput input) {

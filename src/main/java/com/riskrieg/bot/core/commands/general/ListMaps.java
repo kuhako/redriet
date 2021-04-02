@@ -1,10 +1,11 @@
 package com.riskrieg.bot.core.commands.general;
 
-import com.aaronjyoder.util.json.gson.GsonUtil;
+import com.aaronjyoder.util.json.moshi.MoshiUtil;
 import com.google.gson.reflect.TypeToken;
 import com.riskrieg.bot.Main;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.constant.Colors;
 import com.riskrieg.constant.Constants;
 import com.riskrieg.map.GameMap;
@@ -25,10 +26,15 @@ public class ListMaps extends Command {
     this.settings.setGuildOnly(true);
   }
 
+  @Override
+  protected void execute(SlashInput input) {
+
+  }
+
   protected void execute(MessageInput input) {
     Type type = (new TypeToken<HashSet<String>>() {
     }).getType();
-    HashSet<String> maps = GsonUtil.read(Constants.AVAILABLE_MAPS, type);
+    HashSet<String> maps = MoshiUtil.read(Constants.AVAILABLE_MAPS, type);
 
     Set<GameMap> mapSet = new TreeSet<>();
     maps.forEach(mapName -> {
@@ -52,7 +58,7 @@ public class ListMaps extends Command {
       embedBuilder.addField("Maps Unavailable", "*There are currently no maps available.*", false);
     }
     embedBuilder.setDescription(sb.toString());
-    embedBuilder.setFooter("If you would like to aid development and keep updates steady, use the " + Main.bot.getPrefix() + "donate command.");
+    embedBuilder.setFooter("If you would like to aid development and keep updates steady, use the " + Main.bot.auth().prefix() + "donate command.");
     input.event().getChannel().sendMessage(embedBuilder.build()).queue();
   }
 

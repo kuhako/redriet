@@ -3,6 +3,7 @@ package com.riskrieg.bot.core;
 import com.riskrieg.bot.Main;
 import com.riskrieg.bot.core.input.Input;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.bot.core.input.raw.RawInput;
 import java.net.URL;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -56,10 +58,12 @@ public class CommandHandler {
     Optional<Command> result = getCommand(input);
     switch (input.type()) {
       case SLASH -> result.ifPresent(cmd -> {
-        // TODO: Implement SlashInput, canExecute method for SlashInput
+        if (canExecute(cmd, input)) {
+          cmd.execute((SlashInput) input);
+        }
       });
       case MESSAGE -> result.ifPresent(cmd -> {
-        if (canExecute(cmd, (MessageInput) input)) {
+        if (canExecute(cmd, input)) {
           try {
             cmd.execute((MessageInput) input);
           } catch (InsufficientPermissionException e) {
@@ -85,17 +89,14 @@ public class CommandHandler {
 
         String msg = event.getMessage().getContentRaw();
 
-        boolean startsWithDefaultPrefix = msg.startsWith(Main.bot.getDefaultPrefix());
-        boolean startsWithPrefix = msg.startsWith(Main.bot.getPrefix());
+        boolean startsWithPrefix = msg.startsWith(Main.bot.auth().prefix());
         boolean startsWithMention = msg.startsWith("<@!" + event.getJDA().getSelfUser().getId() + ">");
         boolean isPrivateChannel = event.isFromType(ChannelType.PRIVATE);
 
         String[] args = null;
 
-        if (startsWithDefaultPrefix) {
-          args = msg.replaceFirst(Main.bot.getDefaultPrefix(), "").trim().split("\\s+");
-        } else if (startsWithPrefix) {
-          args = msg.replaceFirst(Main.bot.getPrefix(), "").trim().split("\\s+");
+        if (startsWithPrefix) {
+          args = msg.replaceFirst(Main.bot.auth().prefix(), "").trim().split("\\s+");
         } else if (startsWithMention) {
           args = msg.replaceFirst("<@!" + event.getJDA().getSelfUser().getId() + ">", "").trim().split("\\s+"); // TODO: Don't parse mentions like this
         } else if (isPrivateChannel) {
@@ -111,7 +112,11 @@ public class CommandHandler {
 
         yield new MessageInput(event, alias, finalArgs);
       }
-      case SLASH -> null; // TODO: new SlashInput((SlashCommandEvent) rawInput.event());
+      case SLASH -> { // TODO: Uncomment after having access to SlashCommandEvent
+//        SlashCommandEvent event = (SlashCommandEvent) rawInput.event();
+//        yield new SlashInput(event, event.getName());
+        yield null;
+      }
     };
   }
 
@@ -137,11 +142,23 @@ public class CommandHandler {
   /**
    * Determines if the command is valid to use based on who is using it and the settings for that command.
    */
-  private boolean canExecute(Command cmd, MessageInput input) {
+  private boolean canExecute(Command cmd, Input input) {
     if (cmd.settings.isDisabled()) {
       return false;
     }
-    if (cmd.settings.isOwnerCommand() && !input.event().getAuthor().getId().equals(Main.bot.getAuth().getOwnerID())) {
+    if (input instanceof MessageInput messageInput) {
+      return canExecute(cmd, messageInput);
+    } else if (input instanceof SlashInput slashInput) {
+      return canExecute(cmd, slashInput);
+    }
+    return false;
+  }
+
+  /**
+   * Specific to MessageInput due to the MessageReceivedEvent.
+   */
+  private boolean canExecute(Command cmd, MessageInput input) {
+    if (cmd.settings.isOwnerCommand() && !input.event().getAuthor().getId().equals(Main.bot.auth().ownerID())) {
       return false;
     }
     if (cmd.settings.isGuildOnly() && !input.event().isFromGuild()) {
@@ -150,11 +167,35 @@ public class CommandHandler {
     if (input.event().isFromGuild() && !input.event().getGuild().getSelfMember().hasPermission(cmd.settings.getSelfPermissions())) {
       return false;
     }
+    if (input.event().isFromGuild() && input.event().getMessage().mentionsEveryone()
+        && !input.event().getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MENTION_EVERYONE)) {
+      return false;
+    }
     Member member = input.event().getMember();
     if (member != null && !member.hasPermission(cmd.settings.getAuthorPermissions())) {
       return false;
     }
     return true;
   }
+
+  /**
+   * Specific to SlashInput due to the SlashCommandEvent. TODO: Uncomment after having access to SlashCommandEvent
+   */
+//  private boolean canExecute(Command cmd, SlashInput input) {
+//    if (cmd.settings.isOwnerCommand() && !input.event().getUser().getId().equals(Main.bot.auth().ownerID())) {
+//      return false;
+//    }
+//    if (cmd.settings.isGuildOnly() && !input.event().isFromGuild()) {
+//      return false;
+//    }
+//    if (input.event().isFromGuild() && input.event().getGuild() != null && !input.event().getGuild().getSelfMember().hasPermission(cmd.settings.getSelfPermissions())) {
+//      return false;
+//    }
+//    Member member = input.event().getMember();
+//    if (member != null && !member.hasPermission(cmd.settings.getAuthorPermissions())) {
+//      return false;
+//    }
+//    return true;
+//  }
 
 }

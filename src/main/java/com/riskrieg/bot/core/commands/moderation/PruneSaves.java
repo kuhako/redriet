@@ -4,6 +4,7 @@ import com.riskrieg.api.Riskrieg;
 import com.riskrieg.bot.constant.BotConstants;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.gamemode.Game;
 import java.time.Duration;
 import java.time.Instant;
@@ -20,6 +21,11 @@ public class PruneSaves extends Command {
     this.settings.setDescription("Deletes any saves where the game has ended.");
     this.settings.setEmbedColor(BotConstants.MOD_CMD_COLOR);
     this.settings.setOwnerCommand(true);
+  }
+
+  @Override
+  protected void execute(SlashInput input) {
+
   }
 
   @Override

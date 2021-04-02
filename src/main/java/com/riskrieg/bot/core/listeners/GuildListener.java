@@ -11,7 +11,6 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.MessageReaction.ReactionEmote;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.events.channel.text.TextChannelDeleteEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.guild.member.update.GuildMemberUpdateNicknameEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
@@ -26,14 +25,14 @@ public class GuildListener extends ListenerAdapter {
     Guild guild = event.getGuild();
     Optional<Preference> optPref = Preferences.retrievePreference("kickOnGuildExit", guild.getId());
     if (optPref.isPresent() && optPref.get().isEnabled()) {
-      event.getGuild().retrieveMember(event.getUser()).queue(member -> {
-        Riskrieg api = new Riskrieg();
-        Set<Game> saves = api.loadSaves(guild.getId());
-        for (Game game : saves) { // TODO: Notify in the appropriate channel if at all possible.
-          Optional<Player> optPlayer = game.getPlayer(member.getId());
-          optPlayer.ifPresent(player -> game.kick(player.getID()));
-        }
-      });
+      System.out.println(event.getUser().getId()); // Testing
+      Riskrieg api = new Riskrieg();
+      Set<Game> saves = api.loadSaves(guild.getId());
+      for (Game game : saves) { // TODO: Notify in the appropriate channel if at all possible.
+        Optional<Player> optPlayer = game.getPlayer(event.getUser().getId());
+        System.out.println(optPlayer.isPresent()); // Testing
+        optPlayer.ifPresent(player -> game.kick(player.getID()));
+      }
     }
   }
 

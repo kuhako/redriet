@@ -3,6 +3,7 @@ package com.riskrieg.bot.core.commands.general;
 import com.riskrieg.bot.constant.BotConstants;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 public class Ping extends Command {
@@ -11,6 +12,11 @@ public class Ping extends Command {
     this.settings.setAliases("ping", "pong");
     this.settings.setDescription("Tests to see if the bot is online and functional.");
     this.settings.setEmbedColor(BotConstants.GENERIC_CMD_COLOR);
+  }
+
+  @Override
+  protected void execute(SlashInput input) {
+
   }
 
   protected void execute(MessageInput input) {

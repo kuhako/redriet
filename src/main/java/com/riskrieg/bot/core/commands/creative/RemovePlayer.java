@@ -3,6 +3,7 @@ package com.riskrieg.bot.core.commands.creative;
 import com.riskrieg.api.Riskrieg;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.bot.util.Error;
 import com.riskrieg.bot.util.MessageUtil;
 import com.riskrieg.constant.Colors;
@@ -22,6 +23,11 @@ public class RemovePlayer extends Command {
     this.settings.setDescription("Removes a user from the game forcibly.");
     this.settings.setGuildOnly(true);
     this.settings.setEmbedColor(Colors.BORDER_COLOR);
+  }
+
+  @Override
+  protected void execute(SlashInput input) {
+
   }
 
   protected void execute(MessageInput input) {

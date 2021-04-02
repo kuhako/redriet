@@ -3,6 +3,7 @@ package com.riskrieg.bot.core.commands.setup;
 import com.riskrieg.api.Riskrieg;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.bot.util.Error;
 import com.riskrieg.bot.util.MessageUtil;
 import com.riskrieg.bot.util.RiskriegUtil;
@@ -25,6 +26,11 @@ public class AddComputer extends Command {
     this.settings.setDisabled(true); // TODO: Temporary
   }
 
+
+  @Override
+  protected void execute(SlashInput input) {
+
+  }
 
   protected void execute(MessageInput input) { // TODO: Maybe make syntax error send after create game error
     if (input.args().length >= 2) {

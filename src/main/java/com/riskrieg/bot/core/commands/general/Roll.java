@@ -2,6 +2,7 @@ package com.riskrieg.bot.core.commands.general;
 
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.constant.Colors;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -25,6 +26,11 @@ public class Roll extends Command { // TODO: Redo this disgusting mess.
     this.settings.setAliases("roll", "dice", "diceroll", "rolldice");
     this.settings.setDescription("Rolls the specified number of dice with the amount of sides specified.");
     this.settings.setEmbedColor(Colors.BORDER_COLOR);
+  }
+
+  @Override
+  protected void execute(SlashInput input) {
+
   }
 
   protected void execute(MessageInput input) {

@@ -38,7 +38,7 @@ public class MessageUtil {
       gameRules.forEach(gameRule -> {
         sb.append(gameRule.isEnabled() ? BotConstants.ENABLED_EMOJI : BotConstants.DISABLED_EMOJI).append(gameRule.getDisplayName());
         if (appendUsage) {
-          sb.append(" | Usage: `").append(Main.bot.getPrefix()).append("gamerule ").append(gameRule.getName()).append(" [y/n]`");
+          sb.append(" | Usage: `").append(Main.bot.auth().prefix()).append("gamerule ").append(gameRule.getName()).append(" [y/n]`");
         }
         sb.append("\n");
       });

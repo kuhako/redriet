@@ -3,6 +3,7 @@ package com.riskrieg.bot.core.commands.running;
 import com.riskrieg.api.Riskrieg;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.bot.util.Error;
 import com.riskrieg.bot.util.PreferenceUtil;
 import com.riskrieg.bot.util.RiskriegUtil;
@@ -31,6 +32,11 @@ public class Claim extends Command {
     this.settings.setDescription("Tests to see if the bot is online and functional.");
     this.settings.setEmbedColor(Colors.BORDER_COLOR);
     this.settings.setGuildOnly(true);
+  }
+
+  @Override
+  protected void execute(SlashInput input) {
+
   }
 
   protected void execute(MessageInput input) {
@@ -96,22 +102,10 @@ public class Claim extends Command {
 
 }
 
-class TerritoryParser { // TODO: Turn into Record in Java 16
-
-  private final Set<Territory> territories;
-  private final List<String> errors;
+record TerritoryParser(Set<Territory> territories, List<String> errors) {
 
   public TerritoryParser() {
-    this.territories = new HashSet<>();
-    this.errors = new ArrayList<>();
-  }
-
-  public Set<Territory> territories() {
-    return territories;
-  }
-
-  public List<String> errors() {
-    return errors;
+    this(new HashSet<>(), new ArrayList<>());
   }
 
   public void parse(Game game, GameMap map, Member member, MessageInput input) {

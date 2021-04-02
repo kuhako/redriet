@@ -3,6 +3,7 @@ package com.riskrieg.bot.core.commands.general;
 import com.riskrieg.bot.constant.BotConstants;
 import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
+import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.bot.core.preference.Preferences;
 import com.riskrieg.bot.util.Error;
 import com.riskrieg.bot.util.MessageUtil;
@@ -17,6 +18,11 @@ public class SetPreference extends Command {
     this.settings.setDescription("Sets bot preferences.");
     this.settings.setGuildOnly(true);
     this.settings.setEmbedColor(BotConstants.GENERIC_CMD_COLOR);
+  }
+
+  @Override
+  protected void execute(SlashInput input) {
+
   }
 
   protected void execute(MessageInput input) {
