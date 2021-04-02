@@ -152,5 +152,5 @@ gradle-app.setting
 # End of https://www.toptal.com/developers/gitignore/api/java,gradle,intellij
 
 # Riskrieg Stuff
-!lib/Riskrieg-3.0.jar
+!lib/riskrieg-core-3.0.jar
 res/
