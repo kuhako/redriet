@@ -5,7 +5,7 @@ import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
 import com.riskrieg.bot.core.input.SlashInput;
 
-public class GetSave extends Command {
+public class GetSave extends Command { // TODO: Write this command
 
   public GetSave() {
     this.settings.setAliases("get-save", "getsave");
