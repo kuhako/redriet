@@ -1,6 +1,6 @@
 package com.riskrieg.bot.core.commands.moderation;
 
-import com.aaronjyoder.util.json.moshi.MoshiUtil;
+import com.aaronjyoder.util.json.gson.GsonUtil;
 import com.google.gson.reflect.TypeToken;
 import com.riskrieg.bot.constant.BotConstants;
 import com.riskrieg.bot.core.Command;
@@ -37,12 +37,14 @@ public class Stats extends Command {
     EmbedBuilder eb = new EmbedBuilder();
     int shardCount = input.event().getJDA().getShardManager().getShards().size();
     int guildCount = 0;
-    int memberCount = 0;
+    int estMemberCount = 0;
+    int cachedMemberCount = 0;
 
     for (JDA jda : input.event().getJDA().getShardManager().getShards()) {
-      guildCount += jda.getGuilds().size();
-      for (Guild guild : jda.getGuilds()) {
-        memberCount += jda.getGuildById(guild.getId()).getMemberCount();
+      guildCount += jda.getGuildCache().size();
+      for (Guild guild : jda.getGuildCache().stream().toList()) {
+        cachedMemberCount += guild.getMemberCache().size();
+        estMemberCount += guild.getMemberCount();
       }
     }
 
@@ -57,9 +59,10 @@ public class Stats extends Command {
     try {
       Type type = (new TypeToken<HashSet<String>>() {
       }).getType();
-      HashSet<String> availableMaps = MoshiUtil.read(Constants.AVAILABLE_MAPS, type);
+      HashSet<String> availableMaps = GsonUtil.read(Constants.AVAILABLE_MAPS, type);
       maps = availableMaps.size();
     } catch (Exception e) {
+      e.printStackTrace();
       maps = -1L;
     }
 
@@ -67,7 +70,8 @@ public class Stats extends Command {
     eb.setTitle("Stats");
     eb.addField("Total Shards", Integer.toString(shardCount), true);
     eb.addField("Total Guilds", Integer.toString(guildCount), true);
-    eb.addField("Total Members", Integer.toString(memberCount), true);
+    eb.addField("Est. Total Members", Integer.toString(estMemberCount), true);
+    eb.addField("Members Cached", Integer.toString(cachedMemberCount), true);
     eb.addField("Total Maps", Long.toString(maps), true);
     eb.addField("Total Saves", Long.toString(saves), true);
     eb.addField("Ping", Long.toString(input.event().getJDA().getRestPing().complete()), false);
