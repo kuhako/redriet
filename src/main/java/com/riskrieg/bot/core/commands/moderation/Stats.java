@@ -13,6 +13,7 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.MessageBuilder;
@@ -42,7 +43,7 @@ public class Stats extends Command {
 
     for (JDA jda : input.event().getJDA().getShardManager().getShards()) {
       guildCount += jda.getGuildCache().size();
-      for (Guild guild : jda.getGuildCache().stream().toList()) {
+      for (Guild guild : jda.getGuildCache().stream().collect(Collectors.toUnmodifiableList())) {
         cachedMemberCount += guild.getMemberCache().size();
         estMemberCount += guild.getMemberCount();
       }
