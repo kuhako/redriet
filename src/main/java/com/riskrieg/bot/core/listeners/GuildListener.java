@@ -25,12 +25,10 @@ public class GuildListener extends ListenerAdapter {
     Guild guild = event.getGuild();
     Optional<Preference> optPref = Preferences.retrievePreference("kickOnGuildExit", guild.getId());
     if (optPref.isPresent() && optPref.get().isEnabled()) {
-      System.out.println(event.getUser().getId()); // Testing
       Riskrieg api = new Riskrieg();
       Set<Game> saves = api.loadSaves(guild.getId());
       for (Game game : saves) { // TODO: Notify in the appropriate channel if at all possible.
         Optional<Player> optPlayer = game.getPlayer(event.getUser().getId());
-        System.out.println(optPlayer.isPresent()); // Testing
         optPlayer.ifPresent(player -> game.kick(player.getID()));
       }
     }

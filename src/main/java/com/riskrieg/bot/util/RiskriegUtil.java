@@ -47,7 +47,7 @@ public class RiskriegUtil {
             description, footer);
       }
     } else {
-      channel.sendMessage(Error.create("Error starting game.", settings)).queue();
+      channel.sendMessage(Error.create("Error starting/finding/processing game.", settings)).queue();
     }
   }
 
