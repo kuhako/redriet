@@ -5,11 +5,9 @@ import com.riskrieg.bot.core.Command;
 import com.riskrieg.bot.core.input.MessageInput;
 import com.riskrieg.bot.core.input.SlashInput;
 import com.riskrieg.bot.util.Error;
-import com.riskrieg.bot.util.PreferenceUtil;
 import com.riskrieg.bot.util.RiskriegUtil;
 import com.riskrieg.constant.Colors;
 import com.riskrieg.gamemode.Game;
-import com.riskrieg.player.Player;
 import com.riskrieg.response.Response;
 import java.util.Optional;
 

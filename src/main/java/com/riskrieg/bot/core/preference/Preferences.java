@@ -1,6 +1,6 @@
 package com.riskrieg.bot.core.preference;
 
-import com.aaronjyoder.util.json.moshi.MoshiUtil;
+import com.aaronjyoder.util.json.gson.GsonUtil;
 import com.riskrieg.bot.constant.BotConstants;
 import com.riskrieg.bot.core.preference.preferences.KickOnGuildExit;
 import com.riskrieg.bot.core.preference.preferences.PingOnTurn;
@@ -22,7 +22,7 @@ public class Preferences {
 
   public static Preferences load(String guildID) {
     try {
-      Preferences prefs = MoshiUtil.read(BotConstants.PREF_PATH + guildID + ".json", Preferences.class);
+      Preferences prefs = GsonUtil.read(BotConstants.PREF_PATH + guildID + ".json", Preferences.class);
       if (prefs == null) {
         return new Preferences(guildID);
       }
@@ -44,7 +44,7 @@ public class Preferences {
   }
 
   public void save() {
-    MoshiUtil.write(BotConstants.PREF_PATH + this.guildID + ".json", Preferences.class, this);
+    GsonUtil.write(BotConstants.PREF_PATH + this.guildID + ".json", Preferences.class, this);
   }
 
   public Set<Preference> getPreferences() {

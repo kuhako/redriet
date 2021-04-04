@@ -1,6 +1,6 @@
 package com.riskrieg.bot.core.commands.moderation;
 
-import com.aaronjyoder.util.json.moshi.MoshiUtil;
+import com.aaronjyoder.util.json.gson.GsonUtil;
 import com.google.gson.reflect.TypeToken;
 import com.riskrieg.bot.constant.BotConstants;
 import com.riskrieg.bot.core.Command;
@@ -31,12 +31,12 @@ public class AddMap extends Command {
       if (input.args().length == 1) {
         Type type = (new TypeToken<HashSet<String>>() {
         }).getType();
-        HashSet<String> maps = MoshiUtil.read(Constants.AVAILABLE_MAPS, type);
+        HashSet<String> maps = GsonUtil.read(Constants.AVAILABLE_MAPS, type);
         String name = input.arg(0).trim();
-        MapInfo mapInfo = MoshiUtil.read(Constants.MAP_PATH + name + "/" + name + ".json", MapInfo.class);
+        MapInfo mapInfo = GsonUtil.read(Constants.MAP_PATH + name + "/" + name + ".json", MapInfo.class);
         if (mapInfo != null && !maps.contains(name)) {
           maps.add(name);
-          MoshiUtil.write(Constants.AVAILABLE_MAPS, type, maps);
+          GsonUtil.write(Constants.AVAILABLE_MAPS, type, maps);
           input.event().getChannel().sendMessage("Map successfully added.").queue();
         } else if (maps.contains(name)) {
           input.event().getChannel().sendMessage("Map already present in maps list.").queue();

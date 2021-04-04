@@ -1,6 +1,6 @@
 package com.riskrieg.bot.core.commands.moderation;
 
-import com.aaronjyoder.util.json.moshi.MoshiUtil;
+import com.aaronjyoder.util.json.gson.GsonUtil;
 import com.google.gson.reflect.TypeToken;
 import com.riskrieg.bot.constant.BotConstants;
 import com.riskrieg.bot.core.Command;
@@ -30,11 +30,11 @@ public class RemoveMap extends Command {
       if (input.args().length == 1) {
         Type type = (new TypeToken<HashSet<String>>() {
         }).getType();
-        HashSet<String> maps = MoshiUtil.read(Constants.AVAILABLE_MAPS, type);
+        HashSet<String> maps = GsonUtil.read(Constants.AVAILABLE_MAPS, type);
         String name = input.arg(0).trim();
         if (maps.contains(name)) {
           maps.remove(name);
-          MoshiUtil.write(Constants.AVAILABLE_MAPS, type, maps);
+          GsonUtil.write(Constants.AVAILABLE_MAPS, type, maps);
           input.event().getChannel().sendMessage("Map successfully removed.").queue();
         } else {
           input.event().getChannel().sendMessage("Map **" + name + "** not present in maps list, so there was nothing to remove.").queue();

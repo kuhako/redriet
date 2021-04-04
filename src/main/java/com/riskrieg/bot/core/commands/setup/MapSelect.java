@@ -1,6 +1,6 @@
 package com.riskrieg.bot.core.commands.setup;
 
-import com.aaronjyoder.util.json.moshi.MoshiUtil;
+import com.aaronjyoder.util.json.gson.GsonUtil;
 import com.google.gson.reflect.TypeToken;
 import com.riskrieg.api.Riskrieg;
 import com.riskrieg.bot.core.Command;
@@ -90,7 +90,7 @@ public class MapSelect extends Command {
     }
     Type type = (new TypeToken<HashSet<String>>() {
     }).getType();
-    HashSet<String> availableMaps = MoshiUtil.read(Constants.AVAILABLE_MAPS, type);
+    HashSet<String> availableMaps = GsonUtil.read(Constants.AVAILABLE_MAPS, type);
 
     String closestName = null;
     int lowestDistance = Integer.MAX_VALUE;

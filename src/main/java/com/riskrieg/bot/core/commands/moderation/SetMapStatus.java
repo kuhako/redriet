@@ -1,6 +1,6 @@
 package com.riskrieg.bot.core.commands.moderation;
 
-import com.aaronjyoder.util.json.moshi.MoshiUtil;
+import com.aaronjyoder.util.json.gson.GsonUtil;
 import com.google.gson.reflect.TypeToken;
 import com.riskrieg.bot.constant.BotConstants;
 import com.riskrieg.bot.core.Command;
@@ -32,11 +32,11 @@ public class SetMapStatus extends Command {
       if (input.args().length == 2) {
         Type type = (new TypeToken<HashSet<String>>() {
         }).getType();
-        HashSet<String> maps = MoshiUtil.read(Constants.AVAILABLE_MAPS, type);
+        HashSet<String> maps = GsonUtil.read(Constants.AVAILABLE_MAPS, type);
         String name = input.arg(0).trim();
         String status = input.arg(1).toLowerCase().trim();
         if (maps.contains(name)) {
-          MapInfo mapInfo = MoshiUtil.read(Constants.MAP_PATH + name + "/" + name + ".json", MapInfo.class);
+          MapInfo mapInfo = GsonUtil.read(Constants.MAP_PATH + name + "/" + name + ".json", MapInfo.class);
           if (mapInfo != null) {
             switch (status) {
               case "coming_soon" -> mapInfo.setStatus(MapStatus.COMING_SOON);
@@ -46,7 +46,7 @@ public class SetMapStatus extends Command {
                 return;
               }
             }
-            MoshiUtil.write(Constants.MAP_PATH + name + "/" + name + ".json", MapInfo.class, mapInfo);
+            GsonUtil.write(Constants.MAP_PATH + name + "/" + name + ".json", MapInfo.class, mapInfo);
             input.event().getChannel().sendMessage("Map status successfully changed to **" + mapInfo.status().toString() + "**.").queue();
           } else {
             input.event().getChannel().sendMessage("Could not find valid map files for **" + name + "**. Map was not changed.").queue();

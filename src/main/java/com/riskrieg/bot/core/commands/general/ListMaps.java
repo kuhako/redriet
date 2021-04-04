@@ -1,6 +1,6 @@
 package com.riskrieg.bot.core.commands.general;
 
-import com.aaronjyoder.util.json.moshi.MoshiUtil;
+import com.aaronjyoder.util.json.gson.GsonUtil;
 import com.google.gson.reflect.TypeToken;
 import com.riskrieg.bot.Main;
 import com.riskrieg.bot.core.Command;
@@ -34,7 +34,7 @@ public class ListMaps extends Command {
   protected void execute(MessageInput input) {
     Type type = (new TypeToken<HashSet<String>>() {
     }).getType();
-    HashSet<String> maps = MoshiUtil.read(Constants.AVAILABLE_MAPS, type);
+    HashSet<String> maps = GsonUtil.read(Constants.AVAILABLE_MAPS, type);
 
     Set<GameMap> mapSet = new TreeSet<>();
     maps.forEach(mapName -> {
