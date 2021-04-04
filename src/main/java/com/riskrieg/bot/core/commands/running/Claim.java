@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import net.dv8tion.jda.api.entities.Member;
@@ -102,7 +103,15 @@ public class Claim extends Command {
 
 }
 
-record TerritoryParser(Set<Territory> territories, List<String> errors) {
+final class TerritoryParser {
+
+  private final Set<Territory> territories;
+  private final List<String> errors;
+
+  TerritoryParser(Set<Territory> territories, List<String> errors) {
+    this.territories = territories;
+    this.errors = errors;
+  }
 
   public TerritoryParser() {
     this(new HashSet<>(), new ArrayList<>());
@@ -139,5 +148,37 @@ record TerritoryParser(Set<Territory> territories, List<String> errors) {
       }
     }
   }
+
+  public Set<Territory> territories() {
+    return territories;
+  }
+
+  public List<String> errors() {
+    return errors;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == this)
+      return true;
+    if (obj == null || obj.getClass() != this.getClass())
+      return false;
+    var that = (TerritoryParser) obj;
+    return Objects.equals(this.territories, that.territories) &&
+        Objects.equals(this.errors, that.errors);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(territories, errors);
+  }
+
+  @Override
+  public String toString() {
+    return "TerritoryParser[" +
+        "territories=" + territories + ", " +
+        "errors=" + errors + ']';
+  }
+
 
 }

@@ -1,7 +1,6 @@
 package com.riskrieg.bot.core;
 
 import com.riskrieg.bot.auth.AuthRecord;
-import com.riskrieg.bot.auth.RecordsJsonAdapterFactory;
 import com.riskrieg.bot.constant.BotConstants;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -42,7 +41,7 @@ public class Bot {
   private AuthRecord readAuthRecord() {
     File file = new File(BotConstants.AUTH_PATH + "auth.json");
     if (file.exists()) {
-      Moshi moshi = new Moshi.Builder().add(new RecordsJsonAdapterFactory()).build(); // TODO: Moshi does not currently support Records, so this is a temporary workaround.
+      Moshi moshi = new Moshi.Builder().build();
       JsonAdapter<AuthRecord> jsonAdapter = moshi.adapter(AuthRecord.class);
       try {
         return jsonAdapter.fromJson(Files.readString(file.toPath()));

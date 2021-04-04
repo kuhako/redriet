@@ -146,9 +146,11 @@ public class CommandHandler {
     if (cmd.settings.isDisabled()) {
       return false;
     }
-    if (input instanceof MessageInput messageInput) {
+    if (input instanceof MessageInput) {
+      MessageInput messageInput = (MessageInput) input;
       return canExecute(cmd, messageInput);
-    } else if (input instanceof SlashInput slashInput) {
+    } else if (input instanceof SlashInput) {
+      SlashInput slashInput = (SlashInput) input;
       return canExecute(cmd, slashInput);
     }
     return false;
