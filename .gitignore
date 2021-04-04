@@ -152,5 +152,9 @@ gradle-app.setting
 # End of https://www.toptal.com/developers/gitignore/api/java,gradle,intellij
 
 # Riskrieg Stuff
+res/auth/
+res/preferences/
+res/saves/
+res/maps/
+res/images/
 !lib/riskrieg-core-3.0.jar
-res/
