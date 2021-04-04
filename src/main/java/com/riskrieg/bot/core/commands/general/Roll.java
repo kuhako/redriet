@@ -219,8 +219,7 @@ class SingleRoll implements Comparable<SingleRoll> {
 
   @Override
   public int compareTo(SingleRoll o) {
-    int n;
-    n = Integer.compare(this.amount, o.amount);
+    int n = Integer.compare(this.amount, o.amount);
     if (n != 0) {
       return n;
     }
