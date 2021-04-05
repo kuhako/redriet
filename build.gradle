@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    implementation('com.riskrieg:riskrieg-core:1.0.0')
+    implementation('com.riskrieg:core:1.0.0')
 
     implementation('net.dv8tion:JDA:4.2.1_253') {
         exclude module: 'opus-java'
