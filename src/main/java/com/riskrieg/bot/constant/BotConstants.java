@@ -4,8 +4,8 @@ import java.awt.Color;
 
 public class BotConstants {
 
-  public static final String botInviteStr = "https://discord.com/oauth2/authorize?client_id=469418457566281738&scope=bot+applications.commands&permissions=134343680";
-  public static final String serverInviteStr = "https://discord.com/invite/JCV6rSq";
+  public static final String botInviteStr = "https://discord.com/oauth2/authorize?client_id=469418457566281738&scope=bot+applications.commands&permissions=2282081344";
+  public static final String serverInviteStr = "https://discord.com/invite/weU8jYDbW4";
   public static final String dslBotStr = "https://top.gg/bot/469418457566281738";
   public static final String dslServerStr = "https://top.gg/servers/699410244857757696";
 
