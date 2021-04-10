@@ -12,13 +12,14 @@ public class MessageListener implements EventListener {
 
   @Override
   public void onEvent(@NotNull GenericEvent event) { // TODO: Add slash command event parser when that is available.
-    RawInput input = null;
-    if (event instanceof MessageReceivedEvent) {
-      MessageReceivedEvent mrEvent = (MessageReceivedEvent) event; // TODO: Use pattern matching in Java 16
+    RawInput input;
+    if (event instanceof MessageReceivedEvent mrEvent) {
       input = new RawMessageInput(mrEvent);
+    } else {
+      input = null;
     }
     if (input != null && input.isForBot()) {
-      Main.bot.getCommandHandler().process(input);
+      new Thread(() -> Main.bot.getCommandHandler().process(input)).start();
     }
   }
 
