@@ -12,7 +12,7 @@ public class BotConstants {
   public static final Color MOD_CMD_COLOR = new Color(235, 125, 50);
   public static final Color GENERIC_CMD_COLOR = new Color(114, 137, 218);
 
-  public static final String VERSION = "2104.04a";
+  public static final String VERSION = "2104.10a";
 
   public static final String AUTH_PATH = "res/auth/";
   public static final String PREF_PATH = "res/preferences/";
